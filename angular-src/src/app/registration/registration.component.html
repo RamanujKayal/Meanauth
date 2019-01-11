@@ -1,0 +1,70 @@
+<h2 class="page-header">Register</h2>
+<form (submit) = "onRegisterSubmit()" name="registrationForm" novalidate>
+  <div class="form-group">
+    <label>Name</label>
+    <input id="first_name" name="first_name" class="form-control" required [(ngModel)]="first_name" #name="ngModel">
+
+  <!-- Validation -->
+
+  <div *ngIf="name.invalid && (name.dirty || name.touched)"class="alert alert-danger">
+    <div *ngIf="name.errors.required">
+      Name is required.
+    </div>
+  </div>
+  <!-- Validation -->
+
+
+
+  </div>
+  <div class="form-group">
+    <label>Username</label>
+    <input type="text" [(ngModel)]="username" name="username" class="form-control" required minlength="4"  #user="ngModel"/>
+
+    <!-- Validation -->
+
+  <div *ngIf="user.invalid && (user.dirty || user.touched)" class="alert alert-danger">
+    <div *ngIf="user.errors.required">
+      Username is required
+    </div>
+    <div *ngIf="user.errors.minlength">
+      Username must be 4 character long
+    </div>
+  </div>
+  <!-- Validation -->
+
+  </div>
+  <div class="form-group">
+    <label>Email</label>
+    <input type="email" [(ngModel)]="email" name="email" class="form-control"  #emailref="ngModel" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required/>
+
+  <!-- Validation -->
+  <div *ngIf=" (emailref.dirty || emailref.touched)  && emailref.invalid" class="alert alert-danger">
+    <div *ngIf="emailref.errors.required">
+      Email is required
+    </div>
+
+    <div [hidden]="!emailref.errors?.pattern">
+      Invalid email
+    </div> 
+
+  </div>
+  <!-- Validation -->
+
+  </div>
+  <div class="form-group">
+    <label>Password</label> 
+    <input type="password" [(ngModel)]="password" name="password" class="form-control" minlength="8" #passwordref="ngModel" required/>
+    <!-- Validation -->
+  <div *ngIf=" (passwordref.dirty || passwordref.touched)  && passwordref.invalid" class="alert alert-danger">
+    <div *ngIf="passwordref.errors.required">
+      Password is required
+    </div>
+
+    <div *ngIf="passwordref.errors.minlength">
+      Password must be 8 character
+    </div>
+  </div>
+  <!-- Validation -->
+  </div>
+  <input type="submit" class="btn btn-primary" value="submit"/>
+</form>
